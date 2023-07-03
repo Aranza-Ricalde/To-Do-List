@@ -1,6 +1,14 @@
+const style={
+    width: "800px",
+    margin: "auto",
+    display: "block",
+    marginBottom: "30px"
+}
+
 function TodoSearch() {
     return(
-        <input placeholder="Agregar"/>
+        <input style={style} placeholder="Agregar tarea" class="form-control" />
+        
     );
 }
 

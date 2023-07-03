@@ -3,7 +3,6 @@ import { TodoSearch } from './TodoSearch';
 import { TodoList } from './TodoList';
 import { CreateTodoButton } from './CreateTodoButton';
 import { TodoItem } from './TodoItem';
-import './App.css';
 
 const defaultTodos = [
   {text:'cortar cebolla', completed:true},
@@ -11,7 +10,6 @@ const defaultTodos = [
   {text:'cortar tomates', completed:false},
   {text:'cortar pito', completed:false},
   {text:'cortar pika', completed:true},
-
 ]
 
 function App() {
@@ -25,9 +23,9 @@ function App() {
           <TodoItem 
           key={todo.text} 
           text={todo.text} 
-          completed={todo.completed}/>
-        ))}
-        <TodoItem/>
+          completed={todo.completed}
+          />
+        ))} 
       </TodoList>
 
       <CreateTodoButton />

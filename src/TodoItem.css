@@ -1,0 +1,20 @@
+*{
+    transition: .3s;
+}
+
+#check:hover,
+#delete:hover{
+    font-weight: bolder;
+}
+
+.itemCheckComplete{
+    color: rgb(0, 209, 0);
+}
+
+.itemComplete{
+    text-decoration:line-through ;
+}
+
+.itemDeleteComplete{
+    color: red;
+}
