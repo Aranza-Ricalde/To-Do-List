@@ -3,27 +3,86 @@ import { TodoSearch } from './TodoSearch';
 import { TodoList } from './TodoList';
 import { CreateTodoButton } from './CreateTodoButton';
 import { TodoItem } from './TodoItem';
+import React from 'react';
 
-const defaultTodos = [
-  {text:'cortar cebolla', completed:true},
-  {text:'cortar papas', completed:true},
-  {text:'cortar tomates', completed:false},
-  {text:'cortar pito', completed:false},
-  {text:'cortar pika', completed:true},
+/* const defaultTodos = [
+  {text:'Estudiar Aleman', completed:true},
+  {text:'Hacer despensa', completed:true},
+  {text:'Terminar cursos', completed:false},
+  {text:'Ver a Beto wapo muak', completed:false},
+  {text:'Comer esquites', completed:true},
 ]
 
+localStorage.setItem('TODOS', JSON.stringify(defaultTodos));
+localStorage.removeItem('TODOS'); */
+
 function App() {
+  const localStorageTodos = localStorage.getItem('TODOS');
+  let parsedTodos;
+
+  if (!localStorageTodos){
+    localStorage.setItem('TODOS', JSON.stringify([]))
+    parsedTodos = [];
+  }else{
+    parsedTodos =  JSON.parse(localStorageTodos);
+  }
+  const [todos, setTodos] = React.useState(parsedTodos);
+  const [searchValue, setSearchValue] = React.useState('');
+
+  const completedTodos = todos.filter(todo => !!todo.completed).length;
+  const totalTodos = todos.length;
+
+  const searchedTodos = todos.filter(
+    (todo) => {
+      const todoText = todo.text.toLowerCase();
+      const searchText = searchValue.toLowerCase();
+      return todoText.includes(searchText);
+    }
+  );
+
+  const saveTodos = (newTodos) => {
+    localStorage.setItem('TODOS', JSON.stringify(newTodos));
+
+    setTodos(newTodos);
+  };
+
+  const completeTodo = (text) => {
+    const newTodos = [...todos];
+    const todoIndex = newTodos.findIndex(
+      (todo) => todo.text == text
+    );
+    newTodos[todoIndex].completed = true;
+    saveTodos(newTodos);
+  }
+
+  const deleteTodo = (text) => {
+    const newTodos = [...todos];
+    const todoIndex = newTodos.findIndex(
+      (todo) => todo.text == text
+    );
+    newTodos.splice(todoIndex, 1 );
+    saveTodos(newTodos);
+  }
+
   return (
     <>
-      <TodoCounter completed={14} total={8}/>
-      <TodoSearch />
+      <TodoCounter 
+        completed={completedTodos} 
+        total={totalTodos}
+      />
+      <TodoSearch 
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+      />
 
       <TodoList>
-        {defaultTodos.map( todo => (
+        {searchedTodos.map( todo => (
           <TodoItem 
           key={todo.text} 
           text={todo.text} 
           completed={todo.completed}
+          onComplete={() => completeTodo(todo.text)}
+          onDelete={() => deleteTodo(todo.text)}
           />
         ))} 
       </TodoList>
