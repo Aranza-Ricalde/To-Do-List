@@ -1,13 +1,26 @@
+import React from 'react';
+
 const style={
-    width: "800px",
+    width: "600px",
     margin: "auto",
     display: "block",
-    marginBottom: "30px"
+    marginBottom: "30px",
 }
 
-function TodoSearch() {
+function TodoSearch({
+    searchValue,
+    setSearchValue,
+}) {
+    
     return(
-        <input style={style} placeholder="Agregar tarea" class="form-control" />
+        <input style={style} 
+        placeholder="Buscar tareas" 
+        class="form-control" 
+        value={searchValue}
+        onChange={(event) => {
+            setSearchValue(event.target.value);
+        }}
+        />
         
     );
 }

@@ -11,9 +11,21 @@ const style = {
 function TodoItem(props) {
     return (
       <li style={style} class="list-group-item">
-        <span id="check" className={`material-symbols-outlined ${props.completed && "itemCheckComplete"}`}>check_circle</span>
+        <span 
+        id="check" 
+        className={`material-symbols-outlined ${props.completed && "itemCheckComplete"}`}
+        onClick={props.onComplete}
+        >
+          check_circle
+        </span>
         <p className={`${props.completed && "itemComplete"}`}>{props.text}</p>
-        <span id="delete" className={`material-symbols-outlined ${props.completed && "itemDeleteComplete"}`}>delete</span>
+        <span 
+        id="delete" 
+        className={`material-symbols-outlined ${props.completed && "itemDeleteComplete"}`}
+        onClick={props.onDelete}
+        >
+          delete
+        </span>
       </li>
     );
 }

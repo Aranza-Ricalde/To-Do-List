@@ -1,5 +1,5 @@
 const style = {
-    width: "800px",
+    width: "600px",
 };
 
 const container = {
